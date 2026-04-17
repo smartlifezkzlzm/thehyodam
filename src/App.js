@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShoppingCart, Tv, Heart, MessageCircle } from 'lucide-react';
+import { Heart, MessageCircle } from 'lucide-react';
 
 function App() {
   // 3단계용 상태 관리 (메시지 입력 등)
