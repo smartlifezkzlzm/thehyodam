@@ -1,80 +1,75 @@
-import React, { useState } from 'react';
-import { Heart, MessageCircle } from 'lucide-react';
+import React from 'react';
+import { ShoppingCart, Tv, Heart, Package, Phone } from 'lucide-react';
+
+// --- 스타일 설정 (심플하고 정갈한 효담 스타일) ---
+const styles = {
+  container: { fontFamily: "'Pretendard', sans-serif", color: '#333', lineHeight: '1.6' },
+  header: { padding: '20px', borderBottom: '1px solid #eee', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', top: 0, backgroundColor: '#fff', zIndex: 100 },
+  main: { maxWidth: '800px', margin: '0 auto', padding: '40px 20px' },
+  productCard: { border: '1px solid #eee', borderRadius: '15px', overflow: 'hidden', marginBottom: '40px' },
+  imagePlaceholder: { width: '100%', height: '400px', backgroundColor: '#f0f0f0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px', color: '#999' },
+  content: { padding: '20px' },
+  brandBadge: { backgroundColor: '#e63946', color: '#fff', padding: '4px 12px', borderRadius: '20px', fontSize: '12px', fontWeight: 'bold' },
+  title: { fontSize: '24px', fontWeight: 'bold', margin: '15px 0' },
+  price: { fontSize: '20px', color: '#e63946', fontWeight: 'bold' },
+  button: { width: '100%', padding: '15px', backgroundColor: '#222', color: '#fff', border: 'none', borderRadius: '8px', fontSize: '16px', fontWeight: 'bold', cursor: 'pointer', marginTop: '20px' },
+  footer: { padding: '60px 20px', backgroundColor: '#f9f9f9', fontSize: '12px', color: '#666', borderTop: '1px solid #eee', marginTop: '100px' },
+  footerContent: { maxWidth: '800px', margin: '0 auto' },
+  footerTitle: { fontSize: '15px', fontWeight: 'bold', marginBottom: '15px', color: '#333', display: 'block' },
+  linkGroup: { marginTop: '20px', borderTop: '1px solid #ddd', paddingTop: '15px' },
+  link: { marginRight: '20px', fontWeight: 'bold', cursor: 'pointer', color: '#444', textDecoration: 'none' }
+};
 
 function App() {
-  // 3단계용 상태 관리 (메시지 입력 등)
-  const [parentMessage, setParentMessage] = useState("");
-
   return (
-    <div style={{ backgroundColor: '#fff9f9', minHeight: '100vh', padding: '10px', fontFamily: 'sans-serif' }}>
-      
-      {/* 상단 로고 (로고 전까지는 텍스트로 대체) */}
-      <div style={{ textAlign: 'center', padding: '15px 0' }}>
-        <h1 style={{ color: '#d63031', margin: 0, fontSize: '24px', fontWeight: '900' }}>孝湛 [효담]</h1>
-        <p style={{ fontSize: '12px', color: '#636e72', marginTop: '5px' }}>마음을 담다, 효를 담다</p>
-      </div>
+    <div style={styles.container}>
+      {/* 헤더 */}
+      <header style={styles.header}>
+        <h1 style={{ fontSize: '20px', fontWeight: '900', letterSpacing: '-1px' }}>효담</h1>
+        <div>
+          <Tv size={24} style={{ marginRight: '15px', cursor: 'pointer' }} />
+          <ShoppingCart size={24} style={{ cursor: 'pointer' }} />
+        </div>
+      </header>
 
-      {/* 라이브 방송 영역 (실시간 알림 오버레이 추가) */}
-      <div style={{ position: 'relative', borderRadius: '15px', overflow: 'hidden', boxShadow: '0 10px 25px rgba(0,0,0,0.1)' }}>
-        <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, backgroundColor: '#000' }}>
-          <iframe
-            style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
-            src="https://www.youtube.com/embed/LIVE_VIDEO_ID?autoplay=1&mute=1"
-            title="효담 라이브"
-            frameBorder="0"
-            allow="autoplay; encrypted-media"
-            allowFullScreen
-          ></iframe>
-        </div>
-        
-        {/* 실시간 효도 알림 (가상 데이터) */}
-        <div style={{ 
-          position: 'absolute', top: '10px', left: '10px', 
-          backgroundColor: 'rgba(255,255,255,0.8)', padding: '5px 12px', 
-          borderRadius: '20px', fontSize: '11px', fontWeight: 'bold', color: '#d63031'
-        }}>
-          ✨ 방금 천안시 서북구에서 효도 배달 완료!
-        </div>
-      </div>
-
-      {/* 상품 정보 및 메시지 입력 */}
-      <div style={{ backgroundColor: '#fff', marginTop: '15px', padding: '20px', borderRadius: '15px', border: '1px solid #ffeaea' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: '#d63031', fontWeight: 'bold', fontSize: '14px' }}>
-          <Heart size={16} fill="#d63031" /> 오늘 부모님께 드리는 첫 발견
-        </div>
-        <h2 style={{ fontSize: '22px', margin: '10px 0 5px 0' }}>블랙세이블 포도 (1.5kg 내외)</h2>
-        <p style={{ color: '#636e72', fontSize: '13px', lineHeight: '1.4' }}>
-          "엄마 이거 처음 먹어봐!" <br/>설탕보다 달콤하고 씨 없는 귀한 품종만 골랐습니다.
-        </p>
-
-        {/* 효도 메시지 카드 입력 (효담 핵심 기능) */}
-        <div style={{ marginTop: '20px', padding: '15px', backgroundColor: '#fdf2f2', borderRadius: '10px' }}>
-          <label style={{ fontSize: '12px', fontWeight: 'bold', color: '#b33939', display: 'flex', alignItems: 'center', gap: '5px' }}>
-            <MessageCircle size={14} /> 부모님께 보낼 카드 문구
-          </label>
-          <input 
-            type="text" 
-            placeholder="예) 아빠 건강 챙기세요! 아들이 보냅니다."
-            value={parentMessage}
-            onChange={(e) => setParentMessage(e.target.value)}
-            style={{ width: '100%', border: 'none', background: 'transparent', borderBottom: '1px solid #ffb8b8', padding: '8px 0', outline: 'none', fontSize: '14px' }}
-          />
-        </div>
-        
-        <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div>
-            <span style={{ fontSize: '14px', textDecoration: 'line-through', color: '#b2bec3', marginRight: '5px' }}>24,900원</span>
-            <span style={{ fontSize: '24px', fontWeight: '900', color: '#d63031' }}>16,800원</span>
+      {/* 메인 상품 영역 */}
+      <main style={styles.main}>
+        <div style={styles.productCard}>
+          {/* 실제 이미지 파일이 있다면 <img src="..." />로 교체하세요 */}
+          <div style={styles.imagePlaceholder}>블랙세이블 포도 고화질 이미지 영역</div>
+          <div style={styles.content}>
+            <span style={styles.brandBadge}>산지직송</span>
+            <h2 style={styles.title}>부모님께 드리는 보석, 프리미엄 블랙세이블 포도</h2>
+            <p style={{ color: '#666' }}>당도 20브릭스 이상의 진한 달콤함. 효심을 담아 엄선했습니다.</p>
+            <div style={styles.price}>35,000원 <span style={{ fontSize: '14px', color: '#999', fontWeight: 'normal', textDecoration: 'line-through' }}>42,000원</span></div>
+            <button style={styles.button}>네이버 페이로 구매하기</button>
           </div>
-          <button style={{ 
-            backgroundColor: '#d63031', color: '#fff', border: 'none', padding: '15px 30px', 
-            borderRadius: '12px', fontWeight: 'bold', fontSize: '16px', cursor: 'pointer',
-            boxShadow: '0 5px 15px rgba(214, 48, 49, 0.3)'
-          }}>
-            바로 효도하기
-          </button>
         </div>
-      </div>
+      </main>
+
+      {/* 네이버 페이 필수 푸터 영역 */}
+      <footer style={styles.footer}>
+        <div style={styles.footerContent}>
+          <span style={styles.footerTitle}>효담 (HYODAM)</span>
+          <p>
+            상호명: [스마트라이프 주식회사] | 대표자: [박영환] <br />
+            사업자등록번호: [229-88-03004] | 통신판매업신고: [제 2025-충남천안-1063호] <br />
+            주소: 충청남도 천안시 [서북구 두정동 1041, 계룡타워 202호] <br />
+            고객센터: [010-2582-7607] | 이메일: smartlifezkzlzm@gmail.com
+          </p>
+          
+          <div style={styles.linkGroup}>
+            <a href="#terms" style={styles.link}>이용약관</a>
+            <a href="#privacy" style={styles.link}>개인정보처리방침</a>
+            <a href="#guide" style={styles.link}>이용안내</a>
+          </div>
+
+          <p style={{ marginTop: '30px', fontSize: '11px', color: '#aaa' }}>
+            효담은 소비자 보호를 위한 모든 규정을 준수합니다. 본 사이트의 모든 콘텐츠는 저작권법의 보호를 받습니다. <br />
+            © 2026 HYODAM. All rights reserved.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }
