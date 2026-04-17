@@ -35,16 +35,27 @@ function App() {
 
       <main style={styles.main}>
         <section style={styles.videoSection}>
-          <div style={styles.liveBadge}>
-            <span style={{ width: '6px', height: '6px', backgroundColor: '#fff', borderRadius: '50%' }}></span>
-            LIVE
-          </div>
-          <Play size={48} color="rgba(255,255,255,0.5)" />
-          <div style={styles.videoOverlay}>
-            <h3 style={{ fontSize: '18px', fontWeight: 'bold' }}>오늘 새벽 수확한 블랙세이블 포도</h3>
-            <p style={{ fontSize: '14px', opacity: 0.9 }}>실시간 산지 모습을 확인하세요</p>
-          </div>
-        </section>
+  <div style={styles.liveBadge}>
+    <span style={{ width: '6px', height: '6px', backgroundColor: '#fff', borderRadius: '50%' }}></span>
+    LIVE
+  </div>
+  
+  {/* 실제 영상 태그 추가 */}
+  <video 
+    src="/sablegrape.mp4" 
+    autoPlay 
+    muted 
+    loop 
+    playsInline 
+    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+  />
+
+  <div style={styles.videoOverlay}>
+    <h3 style={{ fontSize: '18px', fontWeight: 'bold' }}>오늘 새벽 수확한 블랙세이블 포도</h3>
+    <p style={{ fontSize: '14px', opacity: 0.9 }}>실시간 산지 모습을 확인하세요</p>
+  </div>
+</section>
+        
 
         <section style={styles.content}>
           <h2 style={styles.title}>부모님을 위한 프리미엄 블랙세이블 포도</h2>
